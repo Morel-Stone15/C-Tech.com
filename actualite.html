@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Actualités — Club de technologie</title>
+  <link rel="stylesheet" href="/template/css/actualite.css">
+</head>
+<body>
+  <!-- En-tête -->
+  <header>
+    <div class="branding">
+      <img src="img/logo.png" alt="Logo du Club" width="70" height="70">
+      <div>
+        <h1>Club de technologie</h1>
+        <p>Votre seule limite, est votre imagination ✨</p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="presentation.html">Présentation</a></li>
+        <li><a href="equipe.html">Équipe</a></li>
+        <li><a href="https://form.jotform.com/253536390053051">Événements</a></li>
+        <li><a href="adhesion.html">Adhésion</a></li>
+        <li class="active"><a href="actualite.html">Actualités</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="container">
+    <section class="page-header">
+      <h2>Actualités</h2>
+      <p>Les dernières nouvelles, projets, et événements du club.</p>
+    </section>
+
+    <div class="content-grid">
+      <!-- Liste d'articles -->
+      <section class="news-list">
+        <article class="news-card">
+          <img src="img/news1.jpg" alt="Atelier robotique" class="thumb">
+          <div class="news-body">
+            <h3>Atelier robotique : succès et innovations</h3>
+            <time datetime="2025-11-12">12 novembre 2025</time>
+            <p>Notre atelier de robotique a réuni plus de 50 participants autour des défis autonomes et de l'intelligence embarquée. Retour sur les moments forts et les projets primés.</p>
+            <a class="read-more" href="#">Lire la suite →</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <img src="img/news2.jpg" alt="Hackathon" class="thumb">
+          <div class="news-body">
+            <h3>Hackathon C‑Tech : 24h pour innover</h3>
+            <time datetime="2025-10-05">5 octobre 2025</time>
+            <p>Retour sur notre hackathon inter‑écoles : équipes, idées, prototypes et récompenses. Découvrez les projets gagnants.</p>
+            <a class="read-more" href="#">Lire la suite →</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <img src="img/news3.jpg" alt="Conférence" class="thumb">
+          <div class="news-body">
+            <h3>Conférence cybersécurité : bonnes pratiques</h3>
+            <time datetime="2025-09-18">18 septembre 2025</time>
+            <p>Experts invités, démonstrations en direct et atelier pratique pour mieux protéger vos projets et données.</p>
+            <a class="read-more" href="#">Lire la suite →</a>
+          </div>
+        </article>
+
+        <!-- Pagination simple -->
+        <nav class="pagination" aria-label="Pagination des actualités">
+          <a href="#" class="prev">← Précédent</a>
+          <span class="page-numbers">1 • 2 • 3</span>
+          <a href="#" class="next">Suivant →</a>
+        </nav>
+      </section>
+
+      <!-- Barre latérale -->
+      <aside class="sidebar">
+        <div class="widget">
+          <h4>Recherche</h4>
+          <form id="searchForm">
+            <input type="search" id="search" placeholder="Rechercher une actualité...">
+            <button type="submit">🔎</button>
+          </form>
+        </div>
+
+        <div class="widget">
+          <h4>Catégories</h4>
+          <ul>
+            <li><a href="#">Ateliers</a></li>
+            <li><a href="#">Événements</a></li>
+            <li><a href="#">Projets</a></li>
+            <li><a href="#">Communauté</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Pied de page -->
+  <footer>
+    <p>© 2025 Club de technologie — Tous droits réservés</p>
+    <nav>
+      <ul>
+        <li><a href="mentions.html">Mentions légales</a></li>
+        <li><a href="CHARTE DU CLUB DE TECHNOLOGIE.pdf" target="_blank">Confidentialité</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+  <script>
+    // Recherche simple (filtre côté client par titre/extrait)
+    document.getElementById('searchForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.news-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.indexOf(q) !== -1 ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

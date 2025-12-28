@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galerie C‑Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#121732;
+      --text:#e8eefc;
+      --muted:#a9b3d9;
+      --accent:#3a7bfd;
+      --accent-2:#6ec3ff;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:linear-gradient(180deg, #091225 0%, #0b1020 100%);
+      color:var(--text);
+    }
+    header{
+      padding:48px 20px 24px;
+      text-align:center;
+    }
+    header h1{
+      margin:0 0 8px;
+      font-size:clamp(28px, 4vw, 40px);
+      letter-spacing:0.2px;
+    }
+    header p{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(14px, 2.4vw, 16px);
+    }
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 20px 80px;
+    }
+
+    /* Grille responsive */
+    .gallery{
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(12, 1fr);
+    }
+    /* Breakpoints simples */
+    @media (max-width:880px){
+      .gallery{grid-template-columns:repeat(8, 1fr)}
+    }
+    @media (max-width:600px){
+      .gallery{grid-template-columns:repeat(4, 1fr)}
+    }
+
+    /* Carte image */
+    .item{
+      grid-column:span 4; /* 3 par ligne en grand écran */
+      background:linear-gradient(180deg, #141a33 0%, #0f1530 100%);
+      border:1px solid #1c2550;
+      border-radius:var(--radius);
+      overflow:hidden;
+      position:relative;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 24px rgba(5,12,32,.45);
+      border-color:#2a3a78;
+    }
+    .thumb{
+      aspect-ratio: 4 / 3; /* conserve le ratio */
+      width:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .meta{
+      padding:12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .title{
+      font-weight:600;
+      font-size:14px;
+      color:var(--text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .tag{
+      font-size:12px;
+      color:#cdd6ff;
+      background:linear-gradient(180deg, #1a2450 0%, #16224a 100%);
+      border:1px solid #2a3a78;
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    /* Bouton d’ouverture (lightbox) */
+    .open{
+      position:absolute;
+      inset:0;
+      display:block;
+      background:linear-gradient(0deg, rgba(10,16,40,.45), rgba(10,16,40,0));
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .item:hover .open{opacity:1}
+    .open:focus-visible{outline:2px solid var(--accent)}
+
+    /* Lightbox */
+    dialog#lightbox{
+      width:min(90vw, 980px);
+      border:none;
+      padding:0;
+      background:#0b1020;
+      box-shadow:0 22px 60px rgba(7,12,26,.55);
+      border-radius:18px;
+      overflow:hidden;
+    }
+    dialog::backdrop{
+      background:rgba(3,6,18,.7);
+      backdrop-filter:blur(2px);
+    }
+    .lb-wrap{
+      display:grid;
+      grid-template-columns: 1fr;
+    }
+    .lb-img{
+      width:100%;
+      max-height:72vh;
+      object-fit:contain;
+      background:#0a1228;
+    }
+    .lb-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-top:1px solid #1c2550;
+      background:linear-gradient(180deg, #111735 0%, #0d1430 100%);
+    }
+    .lb-title{font-weight:600}
+    .lb-actions{
+      display:flex; gap:8px;
+    }
+    .btn{
+      border:1px solid #2a3a78;
+      background:linear-gradient(180deg, #182257 0%, #14204f 100%);
+      color:#e8eefc;
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:14px;
+      cursor:pointer;
+      transition:transform .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:#3a7bfd}
+    .btn.secondary{
+      background:transparent;
+      border-color:#2a3a78;
+      color:#cdd6ff;
+    }
+
+    /* Accessibilité + réduction motion */
+    @media (prefers-reduced-motion: reduce){
+      .item,.open,.btn{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Galerie C‑Tech</h1>
+    <p>Projets, ateliers, hackathons et moments forts des étudiants de l’IST.</p>
+  </header>
+
+  <main class="container">
+    <section aria-label="Galerie d’images C‑Tech" class="gallery">
+
+      <!-- Item 1 -->
+      <figure class="item">
+        <img
+          src="images/projet-robotique.jpg"
+          alt="Prototype de robot mobile présenté lors de l’atelier robotique C‑Tech"
+          class="thumb">
+        <figcaption class="meta">
+          <span class="title">Atelier robotique</span>
+          <span class="tag">Projets</span>
+        </figcaption>
+        <a href="#"
+           class="open"
+           aria-label="Agrandir l’image Atelier robotique"
+           data-src="images/projet-robotique.jpg"
+           data-title="Atelier robotique"></a>
+      </figure>
+
+      <!-- Item 2 -->
+      <figure class="item">
+        <img
+          src="images/hackathon.jpg"
+          alt="Participants concentrés durant le hackathon C‑Tech"
+          class="thumb">
+        <figcaption class="meta">
+          <span class="title">Hackathon IST</span>
+          <span class="tag">Événements</span>
+        </figcaption>
+        <a href="#"
+           class="open"
+           aria-label="Agrandir l’image Hackathon IST"
+           data-src="images/hackathon.jpg"
+           data-title="Hackathon IST"></a>
+      </figure>
+
+      <!-- Item 3 -->
+      <figure class="item">
+        <img
+          src="images/design-ux.jpg"
+          alt="Écran de maquette UI/UX pour une application campus"
+          class="thumb">
+        <figcaption class="meta">
+          <span class="title">Design UI/UX</span>
+          <span class="tag">Création</span>
+        </figcaption>
+        <a href="#"
+           class="open"
+           aria-label="Agrandir l’image Design UI/UX"
+           data-src="images/design-ux.jpg"
+           data-title="Design UI/UX"></a>
+      </figure>
+        <!-- Item 4 --> 
+        <figure class="item">
+        <img
+          src="/template/img/11.png"
+          alt="Session de formation en cybersécurité avec des étudiants"
+          class="thumb">
+        <figcaption class="meta">
+            <span class="title">partenaires d'avenir</span>
+            <span class="tag">associer</span>
+        </figcaption>
+        <a href="#"
+           class="open"
+           aria-label="Agrandir l’image Atelier cybersécurité"
+           data-src="images/atelier-cybersecurite.jpg"
+           data-title="Atelier cybersécurité"></a>
+        </figure>
+
+      <!-- Duplique les blocs <figure> pour ajouter d’autres images -->
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <dialog id="lightbox" aria-label="Agrandissement d’image">
+    <div class="lb-wrap">
+      <img id="lb-img" class="lb-img" src="" alt="">
+      <div class="lb-bar">
+        <div class="lb-title" id="lb-title">Titre</div>
+        <div class="lb-actions">
+          <button class="btn secondary" id="lb-close" aria-label="Fermer">Fermer</button>
+          <a class="btn" id="lb-download" href="#" download aria-label="Télécharger l’image">Télécharger</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <section aria-label="Galerie multimédia C‑Tech" class="gallery">
+
+  <!-- Image -->
+  <figure class="item">
+    <img src="img/EDITH.jpeg" alt="Prototype robotique" class="thumb">
+    <figcaption class="meta">
+      <span class="title">Atelier robotique</span>
+      <span class="tag">Image</span>
+    </figcaption>
+  </figure>
+
+  <!-- Vidéo locale -->
+  <figure class="item">
+    <video class="thumb" controls>
+      <source src="/template/deo/ps.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+    <figcaption class="meta">
+      <span class="title">presentation du Club</span>
+      <span class="tag">Vidéo</span>
+    </figcaption>
+  </figure>
+
+  <!-- Vidéo TikTok intégrée -->
+  <figure class="item">
+    <iframe class="thumb"
+      src="https://www.tiktok.com/@ctech_ist.officie?_r=1&_t=ZM-926YwfIXCR6"
+      title="Présentation C‑Tech"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+    <figcaption class="meta">
+      <span class="title">Présentation C‑Tech</span>
+      <span class="tag">tiktok</span>
+    </figcaption>
+  </figure>
+
+  <!-- Audio -->
+  <figure class="item">
+    <audio controls class="thumb">
+      <source src="audio/podcast.mp3" type="audio/mpeg">
+      Votre navigateur ne supporte pas l’audio.
+    </audio>
+    <figcaption class="meta">
+      <span class="title">Podcast C‑Tech</span>
+      <span class="tag">Audio</span>
+    </figcaption>
+  </figure>
+
+</section>
+
+
+  <script>
+    // Ouvre la lightbox avec l’image cliquée
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbClose = document.getElementById('lb-close');
+    const lbDownload = document.getElementById('lb-download');
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.open');
+      if(!trigger) return;
+
+      e.preventDefault();
+      const src = trigger.getAttribute('data-src');
+      const title = trigger.getAttribute('data-title') || 'Image';
+      lbImg.src = src;
+      lbImg.alt = title;
+      lbTitle.textContent = title;
+      lbDownload.href = src;
+
+      if(typeof lightbox.showModal === 'function'){
+        lightbox.showModal();
+      }else{
+        // fallback: si dialog non supporté, ouvre dans un nouvel onglet
+        window.open(src, '_blank');
+      }
+    });
+
+    // Fermer la lightbox
+    lbClose.addEventListener('click', () => lightbox.close());
+
+    // Fermer en cliquant sur l’arrière-plan
+    lightbox.addEventListener('click', (e) => {
+      const rect = lightbox.getBoundingClientRect();
+      const isBackdrop = e.clientX < rect.left || e.clientX > rect.right ||
+                         e.clientY < rect.top  || e.clientY > rect.bottom;
+      if(isBackdrop) lightbox.close();
+    });
+
+    // Fermer avec Échap
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && lightbox.open) lightbox.close();
+    });
+  </script>
+</body>
+</html>

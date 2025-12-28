@@ -1,0 +1,151 @@
+/* Style global */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e6f0ff, #cce0ff); /* fond bleu très clair */
+  color: #222;
+  line-height: 1.6;
+}
+
+/* En-tête */
+header {
+  background: linear-gradient(90deg, #003366, #0055a5); /* bleu marine vers bleu moyen */
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+header p {
+  margin: 0;
+  font-style: italic;
+  color: #d1e9ff;
+}
+
+/* Navigation */
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background: #66a3ff; /* bleu clair */
+  color: #000;
+}
+
+/* Section héro */
+#hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0055a5, #0099cc); /* bleu moyen vers turquoise */
+  color: #fff;
+}
+
+#hero h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+#hero p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+}
+
+.button {
+  background: #003366;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background: #66a3ff;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+/* Sections */
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section h2 {
+  color: #003366;
+  border-bottom: 2px solid #99ccff;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+/* Grille équipe */
+.team-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.team-grid article {
+  background: linear-gradient(180deg, #f0f8ff, #d9ecff); /* dégradé bleu très clair */
+  border: 1px solid #cce0ff;
+  border-radius: 6px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.team-grid article:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.team-grid img {
+  border-radius: 50%;
+  margin-bottom: 10px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Pied de page */
+footer {
+  background: linear-gradient(90deg, #003366, #0055a5);
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+footer a {
+  color: #99ccff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

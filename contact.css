@@ -1,0 +1,47 @@
+/* Dégradé global pour le fond de la page */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #eef1ff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Carte avec un autre dégradé bleu */
+.card {
+  background: linear-gradient(180deg, #1e3c72, #2a5298);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Bouton principal avec dégradé bleu clair */
+.btn-primary {
+  display: inline-block;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: #0b1a40;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+/* Titres avec effet de texte dégradé */
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  background: linear-gradient(90deg, #1e90ff, #00bfff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

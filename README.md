@@ -1,2 +1,2 @@
 # C-Tech.com
-Votre seul limite, est votre imagination
+Au club C-Tech, votre seul limite est votre détermination

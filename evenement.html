@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Événements</title>
+  <link rel="stylesheet" href="/template/css/evenement.css">
+</head>
+<body>
+  <header>
+    <h1>Événements</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="presentation.html">Présentation</a></li>
+        <li><a href="equipe.html">Équipe</a></li>
+        <li><a href="https://form.jotform.com/253536390053051">Adhésion</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
+        <li><a href="actualites.html">Actualités</a></li>
+        <li><a href="email.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Prochain événement</h2>
+    <p id="evtInfo"></p>
+    <button id="btnEvt">Afficher l’événement</button>
+  </main>
+
+  <footer>
+    <p>© 2025 Club C-Tech</p>
+  </footer>
+
+  <script>
+    // Script spécifique à la page événements
+    document.getElementById("btnEvt").addEventListener("click", function() {
+      document.getElementById("evtInfo").textContent = 
+        "📅 Atelier de formation le 12 février à 9h.";
+    });
+  </script>
+</body>
+</html>
